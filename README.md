@@ -30,7 +30,7 @@ Permite que usuários marquem consultas com terapeutas através de um chatbot qu
 
 
 # Scheduler Project
-🇬🇧
+🇺🇸
 ## Description
 Python project using **LangChain**, **Pydantic**, and **Groq**.  
 Allows users to schedule appointments with therapists through a chatbot that interprets and processes the information automatically.
