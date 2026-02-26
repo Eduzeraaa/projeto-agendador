@@ -21,6 +21,19 @@ Permite que usuários marquem consultas com terapeutas através de um chatbot qu
 - Pydantic  
 - Groq (Llama 3.1)
 
+## Parser LLM
+
+O projeto utiliza um **parser LLM** para interpretar as mensagens do usuário e extrair as informações necessárias para o agendamento.  
+
+Ele transforma o texto em três variáveis estruturadas:  
+- `terapeuta`  
+- `data`  
+- `horario`  
+
+Essas variáveis são então usadas para criar dicionários que são adicionados à lista de agendamentos e salvos em JSON.  
+
+A utilização do parser permite separar **processamento de linguagem** da **lógica de persistência de dados**, tornando o projeto modular, testável e fácil de manter.
+
 ## Observações
 - Projeto modular: funções separadas para **chatbot**, **parser LLM** e **persistência em JSON**.  
 - Fácil manutenção e futuras evoluções, como integração com WhatsApp ou múltiplos terapeutas.
@@ -51,6 +64,19 @@ Allows users to schedule appointments with therapists through a chatbot that int
 - LangChain  
 - Pydantic  
 - Groq (Llama 3.1)
+
+## LLM Parser
+
+The project uses an **LLM parser** to interpret user messages and extract the necessary information for scheduling.  
+
+It transforms the text into three structured variables:  
+- `therapist`  
+- `day`  
+- `time`  
+
+These variables are then used to create dictionaries that are appended to the list of appointments and saved in JSON.  
+
+Using the parser separates **language processing** from **data persistence logic**, making the project modular, testable, and easier to maintain.
 
 ## Notes
 - Modular project: separate functions for **chatbot**, **LLM parser**, and **JSON persistence**.  
