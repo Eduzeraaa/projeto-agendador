@@ -1,83 +1,79 @@
 # Projeto Agendador
 🇧🇷
+
 ## Descrição
-Projeto feito em Python utilizando **LangChain**, **Pydantic** e **Groq**.  
-Permite que usuários marquem consultas com terapeutas através de um chatbot que interpreta e processa automaticamente as informações.
+Projeto feito em Python utilizando LangChain, Pydantic, Groq e Google Calendar API.  
+Permite que usuários marquem agendamentos com profissionais através de um chatbot que interpreta e processa automaticamente as informações, e cria eventos diretamente no Google Calendar do profissional.
 
 ## Funcionamento
-
-1. O usuário envia uma mensagem para o chatbot informando: **nome do terapeuta, data e horário** da consulta.  
-2. O modelo interpreta a mensagem e, através de uma **String Output Parser**, cria três variáveis:  
-   - `terapeuta`  
-   - `data`  
-   - `horario`  
-3. O chatbot responde ao usuário confirmando as informações fornecidas.  
-4. As variáveis extraídas são usadas para criar um **dicionário**, que é adicionado a uma lista.  
-5. A lista completa é salva em um **arquivo JSON** (`agenda.json`), contendo todos os agendamentos realizados.
+1. O usuário envia uma mensagem para o chatbot informando: nome do profissional, data, horário da consulta, e seu próprio nome.  
+2. O modelo interpreta a mensagem e, através de um String Output Parser, cria quatro variáveis:
+   - profissional
+   - data
+   - horário
+   - cliente
+3. O chatbot verifica se o horário está disponível no calendário do profissional.  
+4. Se disponível, cria o evento no Google Calendar e confirma a marcação ao usuário.  
+5. As variáveis extraídas também são usadas para criar um dicionário, que é adicionado a uma lista.  
+6. A lista completa é salva em um arquivo JSON (`agenda.json`), contendo todos os agendamentos realizados.
 
 ## Tecnologias utilizadas
-- Python  
-- LangChain  
-- Pydantic  
+- Python
+- LangChain
+- Pydantic
 - Groq (Llama 3.1)
+- Parser LLM
+- Google Calendar API
 
-## Parser LLM
+### Detalhes da integração
+O projeto utiliza a API do Google Calendar para:
+- Verificar se o horário do profissional está ocupado (`freebusy`)  
+- Criar eventos automaticamente no calendário do profissional  
+- Garantir que não haja conflitos entre agendamentos
 
-O projeto utiliza um **parser LLM** para interpretar as mensagens do usuário e extrair as informações necessárias para o agendamento.  
-
-Ele transforma o texto em três variáveis estruturadas:  
-- `terapeuta`  
-- `data`  
-- `horario`  
-
-Essas variáveis são então usadas para criar dicionários que são adicionados à lista de agendamentos e salvos em JSON.  
-
-A utilização do parser permite separar **processamento de linguagem** da **lógica de persistência de dados**, tornando o projeto modular, testável e fácil de manter.
+A utilização do parser LLM permite separar o processamento de linguagem da lógica de persistência e da lógica de calendário, tornando o projeto modular, testável e fácil de manter.
 
 ## Observações
-- Projeto modular: funções separadas para **chatbot**, **parser LLM** e **persistência em JSON**.  
-- Fácil manutenção e futuras evoluções, como integração com WhatsApp ou múltiplos terapeutas.
+- Projeto modular: funções separadas para chatbot, parser LLM, persistência em JSON e integração com Google Calendar.  
+- Fácil manutenção e futuras evoluções, como integração com WhatsApp ou múltiplos profissionais.
 
-
-
-
+---
 
 # Scheduler Project
 🇺🇸
+
 ## Description
-Python project using **LangChain**, **Pydantic**, and **Groq**.  
-Allows users to schedule appointments with therapists through a chatbot that interprets and processes the information automatically.
+Project built in Python using LangChain, Pydantic, Groq, and Google Calendar API.  
+Allows users to schedule appointments with professionals through a chatbot that interprets and automatically processes the information, creating events directly in the professional's Google Calendar.
 
 ## How it works
-
-1. The user sends a message to the chatbot with the **therapist's name, day, and time** of the appointment.  
-2. The model interprets the message and, using a **String Output Parser**, generates three variables:  
-   - `therapist`  
-   - `day`  
-   - `time`  
-3. The chatbot responds to the user confirming the provided information.  
-4. The extracted variables are used to create a **dictionary**, which is appended to a list.  
-5. The complete list is saved in a **JSON file** (`agenda.json`), containing all scheduled appointments.
+1. The user sends a message to the chatbot providing: the professional's name, appointment date and time, and their own name.  
+2. The model interprets the message and, using a String Output Parser, generates four variables:
+   - professional
+   - date
+   - time
+   - client
+3. The chatbot checks if the time slot is available in the professional's calendar.  
+4. If available, it creates the event in Google Calendar and confirms the appointment to the user.  
+5. The extracted variables are also used to create a dictionary, which is appended to a list.  
+6. The complete list is saved in a JSON file (`agenda.json`), containing all scheduled appointments.
 
 ## Technologies used
-- Python  
-- LangChain  
-- Pydantic  
+- Python
+- LangChain
+- Pydantic
 - Groq (Llama 3.1)
+- LLM Parser
+- Google Calendar API
 
-## LLM Parser
+### Integration details
+The project uses the Google Calendar API to:
+- Check if the professional's time slot is busy (`freebusy`)  
+- Automatically create events in the professional's calendar  
+- Ensure there are no scheduling conflicts
 
-The project uses an **LLM parser** to interpret user messages and extract the necessary information for scheduling.  
-
-It transforms the text into three structured variables:  
-- `therapist`  
-- `day`  
-- `time`  
-
-These variables are then used to create dictionaries that are appended to the list of appointments and saved in JSON.  
-
-Using the parser separates **language processing** from **data persistence logic**, making the project modular, testable, and easier to maintain.
+Using the LLM parser separates language processing from data persistence and calendar logic, making the project modular, testable, and easy to maintain.
 
 ## Notes
-- Modular project: separate functions for **chatbot**, **LLM parser**, and **JSON persistence**.  
-- Easy to maintain and ready for future expansions, such as WhatsApp integration or multiple therapists.
+- Modular project: separate functions for chatbot, LLM parser, JSON persistence, and Google Calendar integration.  
+- Easy maintenance and ready for future expansions, such as WhatsApp integration or multiple professionals.
