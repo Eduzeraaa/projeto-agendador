@@ -4,26 +4,28 @@ from langchain_groq import ChatGroq
 from json_agenda import agendamento
 from parser_llm import parse_agendamento
 from chatbot_module import resposta_chatbot
+from calendar_service import autenticacao, disponibilidade, criar_evento
 
+load_dotenv()  # carregar key do .env
 
-
-load_dotenv() #carregar key do .env
-
+# inicializar modelo
 model = ChatGroq(
-    api_key=os.environ.get('GROQ_API_KEY'), #pegar GROQ_API_KEY do .env
-    model_name = 'llama-3.1-8b-instant'
+    api_key=os.environ.get('GROQ_API_KEY'),
+    model_name='llama-3.1-8b-instant'
 )
 
 system_prompt = '''Você é um assistente com respostas resumidas, objetivas e diretas.
-Um usuário terá que pedir para marcar uma terapia. Pegue o nome do terapeuta, data, e horário com o usuário. Esses 3 são obrigatórios. 
-Caso falte algum, peça pro usuário falar o que falta.
-Observação: a data será dada em dia da semana (segunda, terça...). Se o usuário colocar a data em números, diga-o para falar em dia da semana.
-Observação 2: O horário deve ser colocado como relógio convencional (19:30, 11:00). Se o usuário colocar apenas as horas, assuma que os minutos serão 00
-(Usuário: 19 horas -> Horário: 19:00)
-Não se preocupe se o usuário não colocar uma data específica. Apenas confirme.'''
+Um cliente terá que pedir para marcar um agendamento. Pegue o nome do profissional (com quem ele quer marcar), data, horário e nome do cliente. Esses 4 são obrigatórios. 
+Caso falte algum, peça pro cliente falar o que falta.
+Observação: você pegará a data que o cliente enviou (deve conter dia, mês e ano), e transformar no modelo americano yyyy-mm-dd (com hífen).
+Observação 2: O horário deve ser colocado como relógio convencional (19:30, 11:00) COM SEGUNDOS. Se o cliente colocar apenas as horas, assuma que os minutos serão 00,
+e os segundos sempre serão 00.
+(Usuário: 19 horas -> Horário: 19:00:00)
+Não precisa ficar se relembrando que o usuário enviou tudo, nem pedir confirmação.'''
 
+mensagens = []  # histórico de conversa
 
-mensagens = []  #histórico de conversa será armazenado nessa lista
+service = autenticacao()  # autenticação
 
 while True:
     pergunta = input("User (digite 'x' para sair): ")
@@ -31,22 +33,44 @@ while True:
         print("Desligando...")
         break
 
-    # resposta normal pro user
-    resposta = resposta_chatbot(pergunta, model, mensagens)
+    # parse do agendamento
+    obj_agendamento = parse_agendamento(pergunta)
+    cliente = obj_agendamento.cliente
+    data = obj_agendamento.data
+    horario = obj_agendamento.horario
+    profissional = obj_agendamento.profissional
+
+    # definir dono do calendário
+    if profissional == 'Francinei':
+        dono_calendario = 'ea8e71587199978594185c52d4c51f225a130a2933f8f7e4a72203a8cab2553c@group.calendar.google.com'
+    elif profissional == 'Mauro':
+        dono_calendario = '4363821852a55eb92935ae7019dc03dd01596e4b9b74eecd3e9b6ae2eab2b89e@group.calendar.google.com'
+    else:
+        print("Profissional não cadastrado.")
+        continue
+
+    # checar disponibilidade
+    busy = disponibilidade(horario, data, dono_calendario)
+    disp = service.freebusy().query(body=busy).execute()
+
+    if disp['calendars'][dono_calendario]['busy']: # horario ocupado
+        resposta = f"Desculpe {cliente}, o horário solicitado para {profissional} está ocupado. Por favor, escolha outro horário."
+
+    else: #horario disponível
+        criar_evento(cliente, data, horario, profissional, service)
+        resposta = f"Olá {cliente}, prazer em atendê-lo. O agendamento está marcado com {profissional} para o dia {data} às {horario}. Obrigado!"
+
+        # salvar no json
+        agendamento(
+            obj_agendamento.profissional,
+            obj_agendamento.data,
+            obj_agendamento.horario,
+            obj_agendamento.cliente
+        )
+
+    # enviar resposta do chatbot
     print(f"Chatbot: {resposta}")
 
-    # output parser, que transformará algumas palavras em variáveis
-    obj_agendamento = parse_agendamento(pergunta)  # retorna terapeuta, data, horario
-
-    # salvar no json
-    agendamento(
-        obj_agendamento.terapeuta,
-        obj_agendamento.data,
-        obj_agendamento.horario
-    )
-
-    print(f"Agendamento confirmado: {obj_agendamento.terapeuta} dia {obj_agendamento.data} às {obj_agendamento.horario}")
-
-    # atualiza  o histórico de mensagens
+    # atualizar histórico
     mensagens.append(('user', pergunta))
     mensagens.append(('assistant', resposta))
