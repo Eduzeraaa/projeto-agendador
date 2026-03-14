@@ -1,9 +1,10 @@
 import json 
 import os 
-def agendamento(terapeuta, data, horario): 
-    formatacao = { 'terapeuta': terapeuta, 
+def agendamento(profissional, data, horario, cliente): 
+    formatacao = { 'profissional': profissional, 
         'data': data, 
-        'horario': horario 
+        'horario': horario,
+        'cliente': cliente
     } 
     
     if os.path.exists('agenda.json'): 
@@ -19,4 +20,3 @@ def agendamento(terapeuta, data, horario):
         json.dump(dados, arquivo, ensure_ascii=False, indent=4) 
         
     return arquivo 
-
