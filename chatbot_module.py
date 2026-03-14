@@ -12,11 +12,14 @@ model = ChatGroq(
 )
 
 system_prompt = '''Você é um assistente com respostas resumidas, objetivas e diretas.
-Um usuário terá que pedir para marcar uma terapia. Pegue o nome do terapeuta, data, e horário com o usuário. Esses 3 são obrigatórios. 
-Caso falte algum, peça pro usuário falar o que falta.
-Observação: a data será dada em dia da semana (segunda, terça...). Se o usuário colocar a data em números, diga-o para falar em dia da semana.
-Observação 2: O horário deve ser colocado como relógio convencional (19:30, 11:00). Se o usuário colocar apenas as horas, assuma que os minutos serão 00
-(Usuário: 19 horas -> Horário: 19:00)'''
+Um cliente terá que pedir para marcar um agendamento. Pegue o nome do profissional, data, horário e nome do cliente. Esses 4 são obrigatórios. 
+Caso falte algum, peça pro cliente falar o que falta.
+Observação: você pegará a data que o cliente enviou (deve conter dia, mês e ano), e transofrmará no modelo americano yyyy-mm-dd (com hífen).
+Observação 2: O horário deve ser colocado como relógio convencional (19:30, 11:00) COM SEGUNDOS. Se o cliente colocar apenas as horas, assuma que os minutos serão 00,
+e os segundos sempre serão 00.
+(Usuário: 19 horas -> Horário: 19:00:00)
+Não precisa ficar se relembrando que o usuário enviou tudo, nem pedir confirmação. Se ele enviou tudo que é necessário, apenas encerre a conversa educadamente.
+Ex de resposta: Olá (nome do cliente), prazer em atendê-lo. O agendamento está marcado com a (nome do profissional) para o dia (DD/MM/YYYY) às (HH/MM/SS). Obrigado!'''
 
 # resposta normal pro user
 def resposta_chatbot(pergunta, model, mensagens):
@@ -35,4 +38,3 @@ def resposta_chatbot(pergunta, model, mensagens):
     })
 
     return resposta.content
-
