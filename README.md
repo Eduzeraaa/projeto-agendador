@@ -1,79 +1,45 @@
-# Projeto Agendador
-🇧🇷
+# 🇧🇷 Agendador de Horários Automatizado
 
 ## Descrição
-Projeto feito em Python utilizando LangChain, Pydantic, Groq e Google Calendar API.  
-Permite que usuários marquem agendamentos com profissionais através de um chatbot que interpreta e processa automaticamente as informações, e cria eventos diretamente no Google Calendar do profissional.
+O **Agendador de Horários Automatizado** é um sistema que permite aos clientes marcar consultas ou horários com profissionais de forma simples e rápida via chat web.  
+Ele integra **Streamlit**, **Google Calendar API** e uma **LLM (Groq)** para interpretar mensagens e criar eventos automaticamente.
 
-## Funcionamento
-1. O usuário envia uma mensagem para o chatbot informando: nome do profissional, data, horário da consulta, e seu próprio nome.  
-2. O modelo interpreta a mensagem e, através de um String Output Parser, cria quatro variáveis:
-   - profissional
-   - data
-   - horário
-   - cliente
-3. O chatbot verifica se o horário está disponível no calendário do profissional.  
-4. Se disponível, cria o evento no Google Calendar e confirma a marcação ao usuário.  
-5. As variáveis extraídas também são usadas para criar um dicionário, que é adicionado a uma lista.  
-6. A lista completa é salva em um arquivo JSON (`agenda.json`), contendo todos os agendamentos realizados.
-
-## Tecnologias utilizadas
-- Python
-- LangChain
-- Pydantic
-- Groq (Llama 3.1)
-- Parser LLM
-- Google Calendar API
-
-### Detalhes da integração
-O projeto utiliza a API do Google Calendar para:
-- Verificar se o horário do profissional está ocupado (`freebusy`)  
-- Criar eventos automaticamente no calendário do profissional  
-- Garantir que não haja conflitos entre agendamentos
-
-A utilização do parser LLM permite separar o processamento de linguagem da lógica de persistência e da lógica de calendário, tornando o projeto modular, testável e fácil de manter.
-
-## Observações
-- Projeto modular: funções separadas para chatbot, parser LLM, persistência em JSON e integração com Google Calendar.  
-- Fácil manutenção e futuras evoluções, como integração com WhatsApp ou múltiplos profissionais.
+O sistema é ideal para pequenos consultórios, serviços de atendimento ou qualquer cenário em que profissionais precisem de agendamentos automatizados e organizados.
 
 ---
 
-# Scheduler Project
-🇺🇸
+## Funcionalidades
+- Escolha do profissional via menu interativo.  
+- Inserção do nome do cliente.  
+- Agendamento via chat: basta enviar data e horário.  
+- Criação automática de eventos no Google Calendar.  
+- Chat mantém histórico durante a sessão.  
+- Aviso de responsabilidade para garantir que o usuário insira **dia, mês e ano** corretamente.  
+
+---
+
+## Tecnologias
+- **Python + Streamlit** → backend e interface web.  
+- **Groq LLM** via `langchain-groq` → interpretação de mensagens e extração de dados do agendamento.  
+- **Google Calendar API** → criação de eventos
+
+---
+
+# 🇺🇸 Automated Scheduling System
 
 ## Description
-Project built in Python using LangChain, Pydantic, Groq, and Google Calendar API.  
-Allows users to schedule appointments with professionals through a chatbot that interprets and automatically processes the information, creating events directly in the professional's Google Calendar.
+The **Automated Scheduling System** allows clients to quickly book appointments with professionals via web chat.  
+It integrates **Streamlit**, **Google Calendar API**, and **LLM (Groq)** to automatically create events.
 
-## How it works
-1. The user sends a message to the chatbot providing: the professional's name, appointment date and time, and their own name.  
-2. The model interprets the message and, using a String Output Parser, generates four variables:
-   - professional
-   - date
-   - time
-   - client
-3. The chatbot checks if the time slot is available in the professional's calendar.  
-4. If available, it creates the event in Google Calendar and confirms the appointment to the user.  
-5. The extracted variables are also used to create a dictionary, which is appended to a list.  
-6. The complete list is saved in a JSON file (`agenda.json`), containing all scheduled appointments.
+## Features
+- Professional selection via interactive dropdown  
+- Customer name input  
+- Booking via chat by sending date and time  
+- Automatic Google Calendar event creation  
+- Chat history maintained during the session  
+- Disclaimer to ensure correct **day, month, and year** input  
 
-## Technologies used
-- Python
-- LangChain
-- Pydantic
-- Groq (Llama 3.1)
-- LLM Parser
-- Google Calendar API
-
-### Integration details
-The project uses the Google Calendar API to:
-- Check if the professional's time slot is busy (`freebusy`)  
-- Automatically create events in the professional's calendar  
-- Ensure there are no scheduling conflicts
-
-Using the LLM parser separates language processing from data persistence and calendar logic, making the project modular, testable, and easy to maintain.
-
-## Notes
-- Modular project: separate functions for chatbot, LLM parser, JSON persistence, and Google Calendar integration.  
-- Easy maintenance and ready for future expansions, such as WhatsApp integration or multiple professionals.
+## Technologies
+- **Python + Streamlit** → backend and web interface  
+- **Groq LLM** via `langchain-groq` → message interpretation  
+- **Google Calendar API** → event creation
