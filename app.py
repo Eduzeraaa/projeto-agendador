@@ -3,7 +3,6 @@ import pandas as pd
 import os
 from dotenv import load_dotenv
 from langchain_groq import ChatGroq
-from json_agenda import agendamento
 from parser_llm import parse_agendamento
 from chatbot_module import resposta_chatbot
 from calendar_service import autenticacao, disponibilidade, criar_evento
