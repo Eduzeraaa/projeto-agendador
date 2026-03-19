@@ -40,7 +40,7 @@ cliente = st.text_input("Insira seu nome:", key="name")
 
 f'Olá, {st.session_state.name}! Seja bem-vindo ao nosso sistema de agendamento. Por favor, escolha um profissional e informe a data e horário desejados para o seu agendamento.'
 
-st.warning("⚠️ Não nos responsabilizamos por qualquer problema externo dos agendamentos automatizados. Verifique seus dados antes de enviar a mensagem. Quando for inserir data na mensagem, insira DIA, MÊS E ANO. Exemplo: quero marcar no dia 20/08/2026 às 19:30.")
+st.warning("⚠️ Não nos responsabilizamos por qualquer problema externo dos agendamentos automatizados. Verifique seus dados antes de enviar a mensagem. Quando for inserir data na mensagem, insira DIA MÊS E ANO. Exemplo: quero marcar no dia 20 do 08 de 2026 às 19:30.")
 
 df = pd.DataFrame({ #! Botão que escolhe o profissional
     'Profissionais': ['Francinei', 'Mauro'],
