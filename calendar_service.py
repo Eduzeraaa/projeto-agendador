@@ -1,17 +1,15 @@
+import os
+import json
+from datetime import timedelta, datetime
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
-from datetime import timedelta, datetime
 
-def autenticacao(): #autenticação
+def autenticacao():  # autenticação
     SCOPES = ["https://www.googleapis.com/auth/calendar"]
-
-    creds = service_account.Credentials.from_service_account_file(
-        "credentials.json",
-        scopes=SCOPES
-    )
+    creds_dict = json.loads(os.environ.get("GOOGLE_CREDENTIALS"))
+    creds = service_account.Credentials.from_service_account_info(creds_dict, scopes=SCOPES)
     service = build("calendar", "v3", credentials=creds)
     return service
-
 
 
 def disponibilidade(horario, data, dono_calendario): #verificar disponibilidade do calendário
