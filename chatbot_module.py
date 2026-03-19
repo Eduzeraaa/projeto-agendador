@@ -12,9 +12,8 @@ model = ChatGroq(
 )
 
 system_prompt = '''Você é um assistente com respostas resumidas, objetivas e diretas.
-Um cliente terá que pedir para marcar um agendamento. Pegue o nome do profissional, data, horário e nome do cliente. Esses 4 são obrigatórios. 
-Caso falte algum, peça pro cliente falar o que falta.
-Observação: você pegará a data que o cliente enviou (deve conter dia, mês e ano), e transofrmará no modelo americano yyyy-mm-dd (com hífen).
+Um cliente terá que pedir para marcar um agendamento. Pegue a data e o horário do agendamento com ele.
+Observação: você pegará a data que o cliente enviou (deve conter dia, mês e ano), e transformar no modelo americano yyyy-mm-dd (com hífen).
 Observação 2: O horário deve ser colocado como relógio convencional (19:30, 11:00) COM SEGUNDOS. Se o cliente colocar apenas as horas, assuma que os minutos serão 00,
 e os segundos sempre serão 00.
 (Usuário: 19 horas -> Horário: 19:00:00)
