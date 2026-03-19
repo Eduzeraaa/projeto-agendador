@@ -7,8 +7,8 @@ from json_agenda import agendamento
 from parser_llm import parse_agendamento
 from chatbot_module import resposta_chatbot
 from calendar_service import autenticacao, disponibilidade, criar_evento
+from datetime import datetime
 
-load_dotenv()
 load_dotenv()  # carregar key do .env
 
 # inicializar modelo
@@ -39,9 +39,9 @@ st.title('Agendador de horários')
 
 cliente = st.text_input("Insira seu nome:", key="name")
 
-'Olá, ', st.session_state.name
+f'Olá, {st.session_state.name}! Seja bem-vindo ao nosso sistema de agendamento. Por favor, escolha um profissional e informe a data e horário desejados para o seu agendamento.'
 
-st.warning("⚠️ Não nos responsabilizamos por qualquer problema externo dos agendamentos automatizados. Verifique seus dados antes de enviar a mensagem.")
+st.warning("⚠️ Não nos responsabilizamos por qualquer problema externo dos agendamentos automatizados. Verifique seus dados antes de enviar a mensagem. Quando for inserir data na mensagem, insira DIA, MÊS E ANO. Exemplo: quero marcar no dia 20/08/2026 às 19:30.")
 
 df = pd.DataFrame({ #! Botão que escolhe o profissional
     'Profissionais': ['Francinei', 'Mauro'],
@@ -98,4 +98,7 @@ if prompt := st.chat_input("Digite data e horário desejados para agendamento: "
 
     mensagens.append(('user', mensagem))
     mensagens.append(('assistant', resposta))
+
+
+
 
