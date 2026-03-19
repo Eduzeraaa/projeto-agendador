@@ -1,0 +1,8 @@
+streamlit
+pandas
+numpy
+python-dotenv
+google-api-python-client
+google-auth
+langchain-groq
+pydantic
