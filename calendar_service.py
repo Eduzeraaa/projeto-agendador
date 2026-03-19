@@ -44,7 +44,7 @@ def criar_evento(cliente, data, horario, profissional, service): #criar evento s
 
     event = {
         'summary': f'Agendamento {cliente}',
-        'description': f'Você tem um agendamento com {cliente} às {parsed_time.time()}',
+        'description': f'{profissional}, você tem um agendamento com {cliente} às {parsed_time.time()}',
         'start': {
             'dateTime': f'{parsed_date.date()}T{parsed_time.time().isoformat()}',
             'timeZone': 'America/Sao_Paulo',
@@ -52,7 +52,14 @@ def criar_evento(cliente, data, horario, profissional, service): #criar evento s
         'end': {
             'dateTime': f'{parsed_date.date()}T{end_time.time().isoformat()}',
             'timeZone': 'America/Sao_Paulo'
-        }
+        },
+        'reminders':{
+            'useDefault': False,
+            'overrides': [
+                {'method': 'popup', 'minutes': 0},
+                {'method': 'popup', 'minutes': 15}
+            ],
+        },
     }
     
     if profissional == 'Francinei':
