@@ -1,45 +1,91 @@
 # 🇧🇷 Agendador de Horários Automatizado
 
-## Descrição
-O **Agendador de Horários Automatizado** é um sistema que permite aos clientes marcar consultas ou horários com profissionais de forma simples e rápida via chat web.  
-Ele integra **Streamlit**, **Google Calendar API** e uma **LLM (Groq)** para interpretar mensagens e criar eventos automaticamente.
+## 📌 Descrição
+O **Agendador de Horários Automatizado** é um sistema inteligente que permite aos clientes marcar consultas com profissionais de forma simples, rápida e conversacional.
 
-O sistema é ideal para pequenos consultórios, serviços de atendimento ou qualquer cenário em que profissionais precisem de agendamentos automatizados e organizados.
+Utilizando **LLM (Groq)**, o sistema interpreta mensagens em linguagem natural, valida informações e realiza agendamentos automaticamente no **Google Calendar**.
 
----
-
-## Funcionalidades
-- Escolha do profissional via menu interativo.  
-- Inserção do nome do cliente.  
-- Agendamento via chat: basta enviar data e horário.  
-- Criação automática de eventos no Google Calendar.  
-- Chat mantém histórico durante a sessão.  
-- Aviso de responsabilidade para garantir que o usuário insira **dia, mês e ano** corretamente.  
+Ideal para consultórios, prestadores de serviço e profissionais que desejam automatizar sua agenda com mais eficiência e menos esforço manual.
 
 ---
 
-## Tecnologias
-- **Python + Streamlit** → backend e interface web.  
-- **Groq LLM** via `langchain-groq` → interpretação de mensagens e extração de dados do agendamento.  
-- **Google Calendar API** → criação de eventos
+## ⚙️ Funcionalidades
+- Seleção do profissional via interface interativa  
+- Inserção do nome do cliente  
+- Agendamento via chat em linguagem natural  
+- Validação de dados (evita datas passadas e entradas inválidas)  
+- Tratamento de erros da LLM (evita falhas no sistema)  
+- Verificação de disponibilidade no Google Calendar  
+- Sugestão automática de horários alternativos quando há conflito  
+- Confirmação antes de criar o agendamento  
+- Memória de contexto (permite continuar a conversa mesmo com mensagens incompletas)  
+- Histórico de mensagens durante a sessão  
+
+---
+
+## 🧠 Diferenciais
+- Interação natural com o usuário (sem formulários rígidos)  
+- Sistema resiliente a erros de entrada  
+- Fluxo conversacional inteligente  
+- Experiência próxima a um chatbot real de produção  
+
+---
+
+## 🛠️ Tecnologias
+- **Python + Streamlit** → backend e interface web  
+- **Groq LLM** (`langchain-groq`) → interpretação de mensagens  
+- **Google Calendar API** → verificação de disponibilidade e criação de eventos  
+
+---
+
+## 🚀 Próximos Passos
+- Integração com autenticação via Google OAuth  
+- Suporte a múltiplos profissionais com contas próprias  
+- Personalização de horários (expediente e intervalos)  
+- Deploy com domínio personalizado  
 
 ---
 
 # 🇺🇸 Automated Scheduling System
 
-## Description
-The **Automated Scheduling System** allows clients to quickly book appointments with professionals via web chat.  
-It integrates **Streamlit**, **Google Calendar API**, and **LLM (Groq)** to automatically create events.
+## 📌 Description
+The **Automated Scheduling System** is an intelligent solution that allows clients to book appointments with professionals through a conversational interface.
 
-## Features
-- Professional selection via interactive dropdown  
+Using a **Groq LLM**, the system understands natural language, validates inputs, and automatically creates events in **Google Calendar**.
+
+---
+
+## ⚙️ Features
+- Professional selection via interactive interface  
 - Customer name input  
-- Booking via chat by sending date and time  
-- Automatic Google Calendar event creation  
-- Chat history maintained during the session  
-- Disclaimer to ensure correct **day, month, and year** input  
+- Chat-based scheduling using natural language  
+- Data validation (prevents past dates and invalid inputs)  
+- LLM error handling (prevents system crashes)  
+- Google Calendar availability checking  
+- Automatic suggestion of alternative time slots  
+- Confirmation before booking  
+- Context memory (handles incomplete follow-up messages)  
+- Chat history during session  
 
-## Technologies
+---
+
+## 🧠 Highlights
+- Natural interaction (no rigid forms)  
+- Robust error handling  
+- Intelligent conversational flow  
+- Production-like chatbot experience  
+
+---
+
+## 🛠️ Technologies
 - **Python + Streamlit** → backend and web interface  
-- **Groq LLM** via `langchain-groq` → message interpretation  
-- **Google Calendar API** → event creation
+- **Groq LLM** (`langchain-groq`) → message interpretation  
+- **Google Calendar API** → availability and event creation  
+
+---
+
+## 🚀 Next Steps
+- Google OAuth integration  
+- Multi-user (multi-professional) support  
+- Custom working hours and availability  
+- Custom domain deployment  
