@@ -64,8 +64,8 @@ def criar_evento(cliente, data, horario, profissional, service): #criar evento s
         dono_calendario = 'ea8e71587199978594185c52d4c51f225a130a2933f8f7e4a72203a8cab2553c@group.calendar.google.com'
     
         busy = disponibilidade(horario, data, dono_calendario)
-        disp = service.freebusy().query(body=busy).execute()
-        if disp['calendars'][dono_calendario]['busy']:
+        verificar_disponivel = service.freebusy().query(body=busy).execute()
+        if verificar_disponivel['calendars'][dono_calendario]['busy']:
             return
 
         else:
@@ -79,8 +79,8 @@ def criar_evento(cliente, data, horario, profissional, service): #criar evento s
     elif profissional == 'Mauro':
         dono_calendario = '4363821852a55eb92935ae7019dc03dd01596e4b9b74eecd3e9b6ae2eab2b89e@group.calendar.google.com'
         busy = disponibilidade(horario, data, dono_calendario)
-        disp = service.freebusy().query(body=busy).execute()
-        if disp['calendars'][dono_calendario]['busy']:
+        verificar_disponivel = service.freebusy().query(body=busy).execute()
+        if verificar_disponivel['calendars'][dono_calendario]['busy']:
             return
 
         else:
