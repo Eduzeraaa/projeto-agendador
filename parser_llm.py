@@ -6,8 +6,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 class Saida_esperada(BaseModel):
-    data: str = Field(description='Data agendada, modelo americano: yyyy-mm-dd')
-    horario: str = Field(description='Horário agendado, desta forma: HH:MM:SS')
+    data: str = Field(description='Data agendada, modelo americano: yyyy-mm-dd. Se o usuário não informar a data, assuma que data = "..."')
+    horario: str = Field(description='Horário agendado, desta forma: HH:MM:SS. Se o usuário não informar o horário, assuma que horario = "..."')
 
 
 # cria o modelo só pro output parser
