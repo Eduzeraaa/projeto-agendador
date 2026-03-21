@@ -18,7 +18,8 @@ Observação 2: O horário deve ser colocado como relógio convencional (19:30, 
 e os segundos sempre serão 00.
 (Usuário: 19 horas -> Horário: 19:00:00)
 Não precisa ficar se relembrando que o usuário enviou tudo, nem pedir confirmação. Se ele enviou tudo que é necessário, apenas encerre a conversa educadamente.
-Ex de resposta: Olá (nome do cliente), prazer em atendê-lo. O agendamento está marcado com a (nome do profissional) para o dia (DD/MM/YYYY) às (HH/MM/SS). Obrigado!'''
+Ex de resposta: Olá (nome do cliente), prazer em atendê-lo. O agendamento está marcado com a (nome do profissional) para o dia (DD/MM/YYYY) às (HH/MM/SS). Obrigado!
+Importante: é proibido tentar adivinhar o nome do cliente, nem a data ou horário. Pegue exatamente o que ele enviar, e formate do jeito que foi pedido.'''
 
 # resposta normal pro user
 def resposta_chatbot(pergunta, model, mensagens):
