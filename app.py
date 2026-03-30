@@ -3,7 +3,6 @@ import pandas as pd
 import os
 from dotenv import load_dotenv
 from langchain_groq import ChatGroq
-from uuid import uuid4
 from parser_llm import parse_agendamento
 from calendar_service import autenticacao, disponibilidade, criar_evento, cancelar_agendamento_google_calendar
 from database import create_database, buscar_agendamento, desativar_agendamento_database
@@ -254,7 +253,6 @@ if escolha == 'Agendar': #! dentro dessa condição tem todo o fluxo pro agendam
             if st.button('Confirmar agendamento'):
                 dados = st.session_state.dados
                 st.session_state.clicado = True #! para não criar o evento mais de uma vez, caso o usuário clique mais de uma vez no botão de confirmação
-                id_evento = str(uuid4())
                 event, google_event_id = criar_evento(dados['cliente'], dados['data'], dados['horario'], dados['profissional'], service, dados['telefone'])
                 create_database(cliente=dados['cliente'], data=dados['data'], horario=dados['horario'], profissional=dados['profissional'], telefone=dados['telefone'], profissao=profissao, event=event)
                 resposta = f'Agendamento confirmado! Obrigado e até a próxima, {cliente}!'
