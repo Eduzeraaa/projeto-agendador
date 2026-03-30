@@ -1,91 +1,150 @@
-# 🇧🇷 Agendador de Horários Automatizado
+# 🇧🇷 Sistema de Agendamento Inteligente
 
 ## 📌 Descrição
-O **Agendador de Horários Automatizado** é um sistema inteligente que permite aos clientes marcar consultas com profissionais de forma simples, rápida e conversacional.
+O **Sistema de Agendamento Inteligente** é uma aplicação full-stack que automatiza o processo de marcação e cancelamento de horários com profissionais, utilizando linguagem natural.
 
-Utilizando **LLM (Groq)**, o sistema interpreta mensagens em linguagem natural, valida informações e realiza agendamentos automaticamente no **Google Calendar**.
+O sistema combina **LLM (Groq)**, **Google Calendar API** e **MongoDB**, permitindo que usuários interajam como se estivessem conversando com um atendente real.
 
-Ideal para consultórios, prestadores de serviço e profissionais que desejam automatizar sua agenda com mais eficiência e menos esforço manual.
+A aplicação interpreta mensagens, valida informações, gerencia disponibilidade em tempo real e sincroniza tudo entre banco de dados e calendário.
 
 ---
 
 ## ⚙️ Funcionalidades
-- Seleção do profissional via interface interativa  
-- Inserção do nome do cliente  
-- Agendamento via chat em linguagem natural  
-- Validação de dados (evita datas passadas e entradas inválidas)  
-- Tratamento de erros da LLM (evita falhas no sistema)  
-- Verificação de disponibilidade no Google Calendar  
-- Sugestão automática de horários alternativos quando há conflito  
-- Confirmação antes de criar o agendamento  
-- Memória de contexto (permite continuar a conversa mesmo com mensagens incompletas)  
-- Histórico de mensagens durante a sessão  
+- Seleção de profissional via interface (Streamlit)
+- Agendamento via linguagem natural (chat)
+- Cancelamento de agendamentos via chat
+- Integração com Google Calendar em tempo real
+- Verificação automática de disponibilidade
+- Sugestão de horários alternativos
+- Persistência de dados em MongoDB
+- Atualização de status (agendado / cancelado)
+- Validação de datas e horários
+- Memória de contexto na conversa
+- Histórico de mensagens na sessão
 
 ---
 
-## 🧠 Diferenciais
-- Interação natural com o usuário (sem formulários rígidos)  
-- Sistema resiliente a erros de entrada  
-- Fluxo conversacional inteligente  
-- Experiência próxima a um chatbot real de produção  
+## 🧠 Diferenciais Técnicos
+- Sistema conversacional com LLM (Groq)
+- Sincronização entre banco de dados e Google Calendar
+- Fluxo completo de CRUD de agendamentos (Create / Read / Update / Delete)
+- Tratamento de inconsistências de dados entre serviços
+- Arquitetura orientada a fluxo real de produção
+
+---
+
+## 🏗️ Arquitetura
+Fluxo principal:
+
+1. Usuário envia mensagem
+2. LLM extrai data, horário e telefone
+3. Sistema valida dados e disponibilidade
+4. Criação do evento no Google Calendar
+5. Persistência no MongoDB com `google_event_id`
+6. Para cancelamento:
+   - Busca no MongoDB
+   - Remove evento do Google Calendar
+   - Atualiza status no banco
 
 ---
 
 ## 🛠️ Tecnologias
-- **Python + Streamlit** → backend e interface web  
-- **Groq LLM** (`langchain-groq`) → interpretação de mensagens  
-- **Google Calendar API** → verificação de disponibilidade e criação de eventos  
+- **Python**
+- **Streamlit**
+- **MongoDB (Atlas)**
+- **Google Calendar API**
+- **Groq LLM (Llama 3 via LangChain)**
+- **Pydantic**
+
+---
+
+## 🧪 Aprendizados do Projeto
+- Integração de APIs externas (Google Calendar)
+- Manipulação de banco NoSQL (MongoDB)
+- Construção de fluxos conversacionais com LLM
+- Tratamento de estados em aplicações reais
+- Sincronização de dados entre múltiplos sistemas
 
 ---
 
 ## 🚀 Próximos Passos
-- Integração com autenticação via Google OAuth  
-- Suporte a múltiplos profissionais com contas próprias  
-- Personalização de horários (expediente e intervalos)  
-- Deploy com domínio personalizado  
+- Autenticação de usuários (Google OAuth)
+- Painel administrativo para profissionais
+- Multi-tenant (cada profissional com sua agenda isolada)
+- Deploy em produção (Streamlit Cloud / Render)
+- Sistema de notificações (WhatsApp ou e-mail)
 
 ---
 
-# 🇺🇸 Automated Scheduling System
+# 🇺🇸 Smart Scheduling System
 
 ## 📌 Description
-The **Automated Scheduling System** is an intelligent solution that allows clients to book appointments with professionals through a conversational interface.
+The **Smart Scheduling System** is a full-stack application that automates appointment booking and cancellation using natural language.
 
-Using a **Groq LLM**, the system understands natural language, validates inputs, and automatically creates events in **Google Calendar**.
+It integrates **Groq LLM**, **Google Calendar API**, and **MongoDB** to provide a real conversational scheduling experience.
+
+The system processes user messages, validates availability, and keeps both database and calendar fully synchronized.
 
 ---
 
 ## ⚙️ Features
-- Professional selection via interactive interface  
-- Customer name input  
-- Chat-based scheduling using natural language  
-- Data validation (prevents past dates and invalid inputs)  
-- LLM error handling (prevents system crashes)  
-- Google Calendar availability checking  
-- Automatic suggestion of alternative time slots  
-- Confirmation before booking  
-- Context memory (handles incomplete follow-up messages)  
-- Chat history during session  
+- Professional selection via UI
+- Chat-based appointment scheduling
+- Chat-based cancellation system
+- Real-time Google Calendar integration
+- Automatic availability checking
+- Alternative time suggestions
+- MongoDB persistence layer
+- Appointment status tracking (scheduled / canceled)
+- Context memory handling
+- Session chat history
 
 ---
 
-## 🧠 Highlights
-- Natural interaction (no rigid forms)  
-- Robust error handling  
-- Intelligent conversational flow  
-- Production-like chatbot experience  
+## 🧠 Technical Highlights
+- LLM-powered conversational interface
+- Full synchronization between database and calendar
+- Complete CRUD workflow for appointments
+- Robust multi-service data consistency handling
+- Production-like architecture design
+
+---
+
+## 🏗️ Architecture Flow
+1. User sends message
+2. LLM extracts structured data
+3. System validates input and availability
+4. Event is created in Google Calendar
+5. Data is stored in MongoDB with `google_event_id`
+6. Cancellation flow:
+   - Search in MongoDB
+   - Delete event in Google Calendar
+   - Update status in database
 
 ---
 
 ## 🛠️ Technologies
-- **Python + Streamlit** → backend and web interface  
-- **Groq LLM** (`langchain-groq`) → message interpretation  
-- **Google Calendar API** → availability and event creation  
+- Python
+- Streamlit
+- MongoDB Atlas
+- Google Calendar API
+- Groq LLM (Llama 3 via LangChain)
+- Pydantic
+
+---
+
+## 🧪 Key Learnings
+- API integration at production level
+- NoSQL data modeling with MongoDB
+- LLM-based conversational systems
+- State management in real applications
+- Multi-system data synchronization
 
 ---
 
 ## 🚀 Next Steps
-- Google OAuth integration  
-- Multi-user (multi-professional) support  
-- Custom working hours and availability  
-- Custom domain deployment  
+- Google OAuth authentication
+- Admin dashboard for professionals
+- Multi-tenant architecture
+- Production deployment
+- Notification system (WhatsApp / Email)
