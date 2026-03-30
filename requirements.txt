@@ -7,3 +7,4 @@ google-auth
 langchain-groq
 pydantic
 langchain==0.3.27
+pymongo
