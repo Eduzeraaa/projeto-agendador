@@ -56,9 +56,3 @@ def desativar_agendamento_database(agendamento, profissional):
             {'$set': {'status': 'cancelado'}}
         )
 
-
-
-
-#! aqui, temos que criar funções para manipular o banco. além disso, temos que pensar em criar uma função que delete agendamento, e fazer com que confirme que o cliente X
-#! quer cancelar o seu próprio agendamento, sem zaralha
-#! zaralha ---> cliente Y deleta agendamento do cliente X só pra pegar o horário dele
