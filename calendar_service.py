@@ -32,7 +32,7 @@ def disponibilidade(horario, data, dono_calendario): #verificar disponibilidade 
 
 
 
-def criar_evento(cliente, data, horario, profissional, service): #criar evento se horário estiver disponível
+def criar_evento(cliente, data, horario, profissional, service, telefone): #criar evento se horário estiver disponível
     formato_date = '%Y-%m-%d'
     formato_time = '%H:%M:%S'
     parsed_date = datetime.strptime(data, formato_date)
@@ -42,7 +42,7 @@ def criar_evento(cliente, data, horario, profissional, service): #criar evento s
 
     event = {
         'summary': f'Agendamento {cliente}',
-        'description': f'{profissional}, você tem um agendamento com {cliente} às {parsed_time.time()}',
+        'description': f'{profissional}, você tem um agendamento com {cliente} às {parsed_time.time()}.\nNúmero de contato do cliente: {telefone}',
         'start': {
             'dateTime': f'{parsed_date.date()}T{parsed_time.time().isoformat()}',
             'timeZone': 'America/Sao_Paulo',
@@ -73,7 +73,9 @@ def criar_evento(cliente, data, horario, profissional, service): #criar evento s
         calendarId=f'{dono_calendario}',
         body=event
         ).execute()
-        
+            
+            google_event_id = evento['id']
+            return evento, google_event_id
         
         
     elif profissional == 'Mauro':
@@ -88,4 +90,30 @@ def criar_evento(cliente, data, horario, profissional, service): #criar evento s
         calendarId=f'{dono_calendario}',
         body=event
         ).execute()
-            return evento
+            
+            google_event_id = evento['id']
+            return evento, google_event_id
+        
+    resultado = criar_evento(cliente, data, horario, profissional, service, telefone)
+    if not resultado:
+        return evento, google_event_id
+
+def cancelar_agendamento_google_calendar(service, agendamento, profissao, profissional):
+    try:
+        if profissao == 'Terapeuta':
+            if profissional == 'Francinei':
+                dono_calendario = 'ea8e71587199978594185c52d4c51f225a130a2933f8f7e4a72203a8cab2553c@group.calendar.google.com'
+            service.events().delete(
+                calendarId=f'{dono_calendario}',
+                eventId=agendamento['google_event_id']
+            ).execute()
+
+        elif profissao == 'Barbeiro':
+            if profissional == 'Mauro':
+                dono_calendario = '4363821852a55eb92935ae7019dc03dd01596e4b9b74eecd3e9b6ae2eab2b89e@group.calendar.google.com'
+            service.events().delete(
+                calendarId=f'{dono_calendario}',
+                eventId=agendamento['google_event_id']
+            ).execute()
+    except Exception as e:
+        print(f'Erro ao cancelar o agendamento no Google Calendar: {e}')
